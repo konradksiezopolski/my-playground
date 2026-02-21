@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import type { UpscaleState, Resolution, OutputFormat, UploadedFile } from '@/lib/upscaler-types'
-import { Navbar } from '@/components/layout/navbar'
 import { UploadZone } from '@/components/upscaler/upload-zone'
 import { ResolutionSelector } from '@/components/upscaler/resolution-selector'
 import { FormatSelector } from '@/components/upscaler/format-selector'
@@ -58,7 +57,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
 
       {/* Hero */}
       <section className="mx-auto max-w-5xl px-6 pt-16 pb-10 text-center">
