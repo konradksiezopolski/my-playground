@@ -31,5 +31,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 500 })
   }
 
-  return NextResponse.json({ resultUrl: output as string })
+  const resultUrl = typeof output === 'string' ? output : String(output)
+  return NextResponse.json({ resultUrl })
 }
