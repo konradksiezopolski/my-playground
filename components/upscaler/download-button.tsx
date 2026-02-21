@@ -4,14 +4,16 @@ import { Download } from 'lucide-react'
 interface DownloadButtonProps {
   fileUrl: string
   fileName: string
+  onAfterDownload?: () => void
 }
 
-export function DownloadButton({ fileUrl, fileName }: DownloadButtonProps) {
+export function DownloadButton({ fileUrl, fileName, onAfterDownload }: DownloadButtonProps) {
   const handleDownload = () => {
     const a = document.createElement('a')
     a.href = fileUrl
     a.download = fileName
     a.click()
+    onAfterDownload?.()
   }
 
   return (
