@@ -8,6 +8,8 @@ import { ResolutionSelector } from '@/components/upscaler/resolution-selector'
 import { FormatSelector } from '@/components/upscaler/format-selector'
 import { ProcessingState } from '@/components/upscaler/processing-state'
 import { BeforeAfterSlider } from '@/components/upscaler/before-after-slider'
+import { DownloadButton } from '@/components/upscaler/download-button'
+import { UpsellBanner } from '@/components/upscaler/upsell-banner'
 import { Button } from '@/components/ui/button'
 
 export default function Home() {
@@ -113,6 +115,18 @@ export default function Home() {
               beforeDimensions={{ width: uploadedFile.width, height: uploadedFile.height }}
               afterDimensions={getUpscaledDimensions(uploadedFile.width, uploadedFile.height, resolution)}
             />
+            <DownloadButton
+              fileUrl={uploadedFile.previewUrl}
+              fileName={`upscaled-${resolution}.${format}`}
+            />
+            <UpsellBanner onUpgrade={() => setPaywallOpen(true)} />
+            <Button variant="ghost" className="w-full text-zinc-400" onClick={() => {
+              setState('idle')
+              setUploadedFile(null)
+              setProgress(0)
+            }}>
+              Upscale another image
+            </Button>
           </div>
         )}
       </section>
