@@ -6,6 +6,7 @@ import { Navbar } from '@/components/layout/navbar'
 import { UploadZone } from '@/components/upscaler/upload-zone'
 import { ResolutionSelector } from '@/components/upscaler/resolution-selector'
 import { FormatSelector } from '@/components/upscaler/format-selector'
+import { ProcessingState } from '@/components/upscaler/processing-state'
 import { Button } from '@/components/ui/button'
 
 export default function Home() {
@@ -30,6 +31,10 @@ export default function Home() {
 
   const handleUpscale = () => {
     setState('processing')
+  }
+
+  const handleProcessingComplete = () => {
+    setState('complete')
   }
 
   return (
@@ -88,6 +93,10 @@ export default function Home() {
               Upscale Image
             </Button>
           </div>
+        )}
+
+        {state === 'processing' && (
+          <ProcessingState onComplete={handleProcessingComplete} />
         )}
       </section>
     </main>
