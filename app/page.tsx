@@ -66,7 +66,7 @@ export default function Home() {
           Upscale your images with AI
         </h1>
         <p className="mt-4 text-lg text-zinc-500">
-          Enlarge photos to 2K, 4K, or Ultra HD — without losing quality.
+          Free 2× upscale for everyone — upgrade to Pro for 4K and Ultra HD.
         </p>
         <div className="mt-6 flex items-center justify-center gap-6 text-sm text-zinc-400">
           <span>✓ No account required</span>
