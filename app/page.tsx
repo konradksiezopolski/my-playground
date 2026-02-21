@@ -20,7 +20,6 @@ export default function Home() {
   const [format, setFormat] = useState<OutputFormat>('jpg')
   const [paywallOpen, setPaywallOpen] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [blobUrl, setBlobUrl] = useState<string | null>(null)
   const [resultUrl, setResultUrl] = useState<string | null>(null)
 
   const handleUpload = (file: UploadedFile) => {
@@ -40,20 +39,9 @@ export default function Home() {
     setError(null)
 
     try {
-      // 1. Upload to Vercel Blob
       const formData = new FormData()
       formData.append('image', uploadedFile.file)
-      const uploadRes = await fetch('/api/upload', { method: 'POST', body: formData })
-      if (!uploadRes.ok) throw new Error('Upload failed. Please try again.')
-      const { url } = await uploadRes.json() as { url: string }
-      setBlobUrl(url)
-
-      // 2. Upscale via Replicate
-      const upscaleRes = await fetch('/api/upscale', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageUrl: url }),
-      })
+      const upscaleRes = await fetch('/api/upscale', { method: 'POST', body: formData })
       if (!upscaleRes.ok) throw new Error('Processing failed. Please try again.')
       const { resultUrl: result } = await upscaleRes.json() as { resultUrl: string }
       setResultUrl(result)
@@ -61,14 +49,6 @@ export default function Home() {
     } catch (err) {
       handleError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     }
-  }
-
-  const cleanupBlob = (url: string) => {
-    fetch('/api/upload', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url }),
-    }).catch(() => {}) // fire-and-forget
   }
 
   const getUpscaledDimensions = (width: number, height: number, res: Resolution) => {
@@ -148,13 +128,11 @@ export default function Home() {
               <DownloadButton
                 fileUrl={resultUrl ?? uploadedFile.previewUrl}
                 fileName={`upscaled-${resolution}.${format}`}
-                onAfterDownload={() => { if (blobUrl) cleanupBlob(blobUrl) }}
-              />
+                />
               <UpsellBanner onUpgrade={() => setPaywallOpen(true)} />
               <Button variant="ghost" className="w-full text-zinc-400" onClick={() => {
                 setState('idle')
                 setUploadedFile(null)
-                setBlobUrl(null)
                 setResultUrl(null)
               }}>
                 Upscale another image
