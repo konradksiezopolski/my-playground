@@ -48,12 +48,16 @@ export function UploadZone({ onUpload, onError }: UploadZoneProps) {
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label="Upload image"
       onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
       onDragLeave={() => setDragging(false)}
       onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.click() } }}
       className={cn(
-        'flex cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed p-16 transition-colors',
+        'flex cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed p-8 sm:p-16 transition-colors',
         dragging
           ? 'border-zinc-400 bg-zinc-50'
           : 'border-zinc-200 bg-zinc-50 hover:border-zinc-300 hover:bg-zinc-100'
