@@ -15,7 +15,7 @@ export function UpsellBanner({ onUpgrade }: UpsellBannerProps) {
             Want 4K or 8K Ultra HD?
           </p>
           <p className="text-xs text-zinc-500 mt-0.5">
-            Upgrade to Pro — from $9/month. Unlimited upscales.
+            Upgrade to Pro — $19/month. Unlimited upscales.
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
