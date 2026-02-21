@@ -63,15 +63,18 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-5xl px-6 pt-16 pb-10 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
-          Upscale your images with AI
+          Go From Pixelated to Pin-Sharp
         </h1>
         <p className="mt-4 text-lg text-zinc-500">
-          Free 2× upscale for everyone — upgrade to Pro for 4K and Ultra HD.
+          AI-powered upscaling that adds detail, restores clarity, and boosts resolution in seconds.
+        </p>
+        <p className="mt-1 text-lg text-zinc-500">
+          2× free — unlock 4K &amp; Ultra HD with Pro.
         </p>
         <div className="mt-6 flex items-center justify-center gap-6 text-sm text-zinc-400">
-          <span>✓ No account required</span>
-          <span>✓ Free 2x upscale</span>
+          <span>✓ No sign-up</span>
           <span>✓ Instant results</span>
+          <span>✓ Free 2× upscale</span>
         </div>
       </section>
 

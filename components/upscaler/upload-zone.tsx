@@ -68,9 +68,9 @@ export function UploadZone({ onUpload, onError }: UploadZoneProps) {
       </div>
       <div className="text-center">
         <p className="font-medium text-zinc-700">
-          Drop your image here, or <span className="text-zinc-900 underline underline-offset-2">browse</span>
+          Drop your image here or <strong className="text-zinc-900">upload a file</strong>
         </p>
-        <p className="mt-1 text-sm text-zinc-400">JPG, PNG, WEBP — up to 10MB</p>
+        <p className="mt-1 text-sm text-zinc-400">JPG, PNG, WEBP · Up to 10MB</p>
       </div>
       <input
         ref={inputRef}
