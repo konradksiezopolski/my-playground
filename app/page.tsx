@@ -10,6 +10,7 @@ import { ProcessingState } from '@/components/upscaler/processing-state'
 import { BeforeAfterSlider } from '@/components/upscaler/before-after-slider'
 import { DownloadButton } from '@/components/upscaler/download-button'
 import { UpsellBanner } from '@/components/upscaler/upsell-banner'
+import { PaywallModal } from '@/components/upscaler/paywall-modal'
 import { Button } from '@/components/ui/button'
 
 export default function Home() {
@@ -130,6 +131,7 @@ export default function Home() {
           </div>
         )}
       </section>
+      <PaywallModal open={paywallOpen} onClose={() => setPaywallOpen(false)} />
     </main>
   )
 }
