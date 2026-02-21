@@ -71,7 +71,15 @@ export default async function DashboardPage() {
   return (
     <main className="min-h-screen bg-zinc-50">
       <div className="mx-auto max-w-5xl px-6 py-12">
-        <h1 className="text-2xl font-bold tracking-tight text-zinc-900 mb-8">Dashboard</h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-2xl font-bold tracking-tight text-zinc-900">Dashboard</h1>
+          <a
+            href="/"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 transition-colors"
+          >
+            + New upscale
+          </a>
+        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-10">
@@ -82,7 +90,14 @@ export default async function DashboardPage() {
         </div>
 
         {/* Jobs */}
-        <h2 className="text-lg font-semibold text-zinc-900 mb-4">Past Upscales</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-zinc-900">Past Upscales</h2>
+          {allJobs.length > 0 && (
+            <a href="/" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+              + New upscale
+            </a>
+          )}
+        </div>
         {allJobs.length === 0 ? (
           <div className="text-center py-16 text-zinc-400">
             <p>No upscales yet.</p>
