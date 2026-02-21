@@ -66,8 +66,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-24">
-        <p className="mb-4 text-center text-sm text-zinc-400">state: {state}</p>
-
+        <div className="rounded-3xl border border-zinc-100 bg-white p-8 shadow-sm">
         {state === 'idle' || state === 'error' ? (
           <div className="space-y-3">
             <UploadZone onUpload={handleUpload} onError={handleError} />
@@ -130,6 +129,7 @@ export default function Home() {
             </Button>
           </div>
         )}
+        </div>
       </section>
       <PaywallModal open={paywallOpen} onClose={() => setPaywallOpen(false)} />
     </main>
