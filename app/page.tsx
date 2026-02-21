@@ -4,6 +4,9 @@ import { useState } from 'react'
 import type { UpscaleState, Resolution, OutputFormat, UploadedFile } from '@/lib/upscaler-types'
 import { Navbar } from '@/components/layout/navbar'
 import { UploadZone } from '@/components/upscaler/upload-zone'
+import { ResolutionSelector } from '@/components/upscaler/resolution-selector'
+import { FormatSelector } from '@/components/upscaler/format-selector'
+import { Button } from '@/components/ui/button'
 
 export default function Home() {
   const [state, setState] = useState<UpscaleState>('idle')
@@ -23,6 +26,10 @@ export default function Home() {
   const handleError = (message: string) => {
     setError(message)
     setState('error')
+  }
+
+  const handleUpscale = () => {
+    setState('processing')
   }
 
   return (
@@ -55,6 +62,33 @@ export default function Home() {
             )}
           </div>
         ) : null}
+
+        {state === 'ready' && uploadedFile && (
+          <div className="space-y-6">
+            {/* Image preview */}
+            <div className="overflow-hidden rounded-2xl border border-zinc-100">
+              <img src={uploadedFile.previewUrl} alt="Uploaded" className="max-h-72 w-full object-contain bg-zinc-50" />
+            </div>
+            <p className="text-sm text-zinc-400 text-center">
+              {uploadedFile.width} × {uploadedFile.height}px · {(uploadedFile.file.size / 1024 / 1024).toFixed(1)}MB
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <ResolutionSelector
+                value={resolution}
+                onChange={setResolution}
+                onProAttempt={() => setPaywallOpen(true)}
+              />
+              <FormatSelector
+                value={format}
+                onChange={setFormat}
+                onProAttempt={() => setPaywallOpen(true)}
+              />
+            </div>
+            <Button className="w-full" size="lg" onClick={handleUpscale}>
+              Upscale Image
+            </Button>
+          </div>
+        )}
       </section>
     </main>
   )
