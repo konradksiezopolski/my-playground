@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { UpscaleState, Resolution, OutputFormat, UploadedFile } from '@/lib/upscaler-types'
 import { Navbar } from '@/components/layout/navbar'
+import { UploadZone } from '@/components/upscaler/upload-zone'
 
 export default function Home() {
   const [state, setState] = useState<UpscaleState>('idle')
@@ -12,6 +13,17 @@ export default function Home() {
   const [progress, setProgress] = useState(0)
   const [paywallOpen, setPaywallOpen] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const handleUpload = (file: UploadedFile) => {
+    setUploadedFile(file)
+    setState('ready')
+    setError(null)
+  }
+
+  const handleError = (message: string) => {
+    setError(message)
+    setState('error')
+  }
 
   return (
     <main className="min-h-screen bg-white">
@@ -32,7 +44,18 @@ export default function Home() {
         </div>
       </section>
 
-      <p className="p-8 text-zinc-500 text-center">state: {state}</p>
+      <section className="mx-auto max-w-5xl px-6 pb-24">
+        <p className="mb-4 text-center text-sm text-zinc-400">state: {state}</p>
+
+        {state === 'idle' || state === 'error' ? (
+          <div className="space-y-3">
+            <UploadZone onUpload={handleUpload} onError={handleError} />
+            {error && (
+              <p className="text-center text-sm text-red-500">{error}</p>
+            )}
+          </div>
+        ) : null}
+      </section>
     </main>
   )
 }
