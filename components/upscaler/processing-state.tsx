@@ -11,34 +11,19 @@ const MESSAGES = [
   'Almost done...',
 ]
 
-interface ProcessingStateProps {
-  onComplete: () => void
-}
-
-export function ProcessingState({ onComplete }: ProcessingStateProps) {
+export function ProcessingState() {
   const [progress, setProgress] = useState(0)
   const [messageIndex, setMessageIndex] = useState(0)
 
   useEffect(() => {
-    const duration = 3000
-    const interval = 50
-    const steps = duration / interval
-    let step = 0
-
+    let p = 0
     const timer = setInterval(() => {
-      step++
-      const p = Math.min((step / steps) * 100, 99)
+      p = p >= 95 ? 10 : p + 0.4
       setProgress(p)
       setMessageIndex(Math.floor((p / 100) * MESSAGES.length))
-      if (step >= steps) {
-        clearInterval(timer)
-        setProgress(100)
-        setTimeout(onComplete, 200)
-      }
-    }, interval)
-
+    }, 100)
     return () => clearInterval(timer)
-  }, [onComplete])
+  }, [])
 
   return (
     <div className="flex flex-col items-center gap-6 py-16">
@@ -49,7 +34,7 @@ export function ProcessingState({ onComplete }: ProcessingStateProps) {
         </div>
         <Progress value={progress} className="h-2" />
       </div>
-      <p className="text-xs text-zinc-400">Estimated time: ~5–15 seconds</p>
+      <p className="text-xs text-zinc-400">This may take 5–30 seconds</p>
     </div>
   )
 }

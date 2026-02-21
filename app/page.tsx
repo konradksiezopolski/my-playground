@@ -37,10 +37,6 @@ export default function Home() {
     setState('processing')
   }
 
-  const handleProcessingComplete = () => {
-    setState('complete')
-  }
-
   const getUpscaledDimensions = (width: number, height: number, res: Resolution) => {
     const factor = res === '2x' ? 2 : res === '4x' ? 4 : 8
     return { width: width * factor, height: height * factor }
@@ -104,7 +100,7 @@ export default function Home() {
         )}
 
         {state === 'processing' && (
-          <ProcessingState onComplete={handleProcessingComplete} />
+          <ProcessingState />
         )}
 
         {state === 'complete' && uploadedFile && (
