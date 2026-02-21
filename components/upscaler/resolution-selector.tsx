@@ -23,6 +23,7 @@ export function ResolutionSelector({ value, onChange, onProAttempt }: Resolution
           <button
             key={opt.value}
             onClick={() => opt.pro ? onProAttempt() : onChange(opt.value)}
+            aria-pressed={value === opt.value && !opt.pro}
             className={cn(
               'relative flex flex-1 flex-col items-center gap-1 rounded-xl border-2 py-4 text-sm font-medium transition-colors',
               value === opt.value && !opt.pro
