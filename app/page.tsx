@@ -7,6 +7,7 @@ import { UploadZone } from '@/components/upscaler/upload-zone'
 import { ResolutionSelector } from '@/components/upscaler/resolution-selector'
 import { FormatSelector } from '@/components/upscaler/format-selector'
 import { ProcessingState } from '@/components/upscaler/processing-state'
+import { BeforeAfterSlider } from '@/components/upscaler/before-after-slider'
 import { Button } from '@/components/ui/button'
 
 export default function Home() {
@@ -35,6 +36,11 @@ export default function Home() {
 
   const handleProcessingComplete = () => {
     setState('complete')
+  }
+
+  const getUpscaledDimensions = (width: number, height: number, res: Resolution) => {
+    const factor = res === '2x' ? 2 : res === '4x' ? 4 : 8
+    return { width: width * factor, height: height * factor }
   }
 
   return (
@@ -97,6 +103,17 @@ export default function Home() {
 
         {state === 'processing' && (
           <ProcessingState onComplete={handleProcessingComplete} />
+        )}
+
+        {state === 'complete' && uploadedFile && (
+          <div className="space-y-6">
+            <BeforeAfterSlider
+              beforeUrl={uploadedFile.previewUrl}
+              afterUrl={uploadedFile.previewUrl}
+              beforeDimensions={{ width: uploadedFile.width, height: uploadedFile.height }}
+              afterDimensions={getUpscaledDimensions(uploadedFile.width, uploadedFile.height, resolution)}
+            />
+          </div>
         )}
       </section>
     </main>
