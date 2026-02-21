@@ -29,7 +29,7 @@ export function UserMenu({ user }: UserMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 w-8 rounded-full p-0 font-semibold">
+        <Button variant="outline" size="sm" className="h-8 w-8 rounded-full p-0 font-semibold" aria-label="User menu">
           {initial}
         </Button>
       </DropdownMenuTrigger>
