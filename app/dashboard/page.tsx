@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { deleteJob } from './actions'
 
 interface Job {
   id: string
@@ -38,13 +39,24 @@ function JobCard({ job }: { job: Job }) {
         <p className="text-xs text-zinc-400">
           {job.resolution.toUpperCase()} · {job.format.toUpperCase()} · {date}
         </p>
-        <a
-          href={job.result_url}
-          download
-          className="mt-2 flex items-center gap-1 text-xs font-medium text-zinc-900 hover:underline"
-        >
-          ↓ Download
-        </a>
+        <div className="mt-2 flex items-center justify-between">
+          <a
+            href={job.result_url}
+            download
+            className="flex items-center gap-1 text-xs font-medium text-zinc-900 hover:underline"
+          >
+            ↓ Download
+          </a>
+          <form action={deleteJob}>
+            <input type="hidden" name="jobId" value={job.id} />
+            <button
+              type="submit"
+              className="text-xs text-zinc-400 hover:text-red-500 transition-colors"
+            >
+              Remove
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   )
