@@ -1,5 +1,6 @@
 import Replicate from 'replicate'
 import { NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
 
 export const maxDuration = 60
 
@@ -10,6 +11,8 @@ const replicate = new Replicate({
 export async function POST(request: Request) {
   const formData = await request.formData()
   const file = formData.get('image') as File
+  const resolution = (formData.get('resolution') as string) ?? '2x'
+  const format = (formData.get('format') as string) ?? 'jpg'
 
   if (!file) {
     return NextResponse.json({ error: 'No image provided' }, { status: 400 })
@@ -32,5 +35,18 @@ export async function POST(request: Request) {
   }
 
   const resultUrl = typeof output === 'string' ? output : String(output)
+
+  // Save job if user is authenticated
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (user) {
+    await supabase.from('jobs').insert({
+      user_id: user.id,
+      result_url: resultUrl,
+      resolution,
+      format,
+    })
+  }
+
   return NextResponse.json({ resultUrl })
 }

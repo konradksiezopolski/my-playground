@@ -40,6 +40,8 @@ export default function Home() {
     try {
       const formData = new FormData()
       formData.append('image', uploadedFile.file)
+      formData.append('resolution', resolution)
+      formData.append('format', format)
       const upscaleRes = await fetch('/api/upscale', { method: 'POST', body: formData })
       if (!upscaleRes.ok) throw new Error('Processing failed. Please try again.')
       const { resultUrl: result } = await upscaleRes.json() as { resultUrl: string }
