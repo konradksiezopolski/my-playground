@@ -92,9 +92,17 @@ export default function Home() {
               <div className="overflow-hidden rounded-2xl border border-zinc-100">
                 <img src={uploadedFile.previewUrl} alt="Uploaded" className="max-h-72 w-full object-contain bg-zinc-50" />
               </div>
-              <p className="text-sm text-zinc-400 text-center">
-                {uploadedFile.width} × {uploadedFile.height}px · {(uploadedFile.file.size / 1024 / 1024).toFixed(1)}MB
-              </p>
+              <div className="flex items-center justify-center gap-3">
+                <p className="text-sm text-zinc-400">
+                  {uploadedFile.width} × {uploadedFile.height}px · {(uploadedFile.file.size / 1024 / 1024).toFixed(1)}MB
+                </p>
+                <button
+                  onClick={() => { setState('idle'); setUploadedFile(null); setError(null) }}
+                  className="text-sm text-zinc-400 underline underline-offset-2 hover:text-zinc-600 transition-colors"
+                >
+                  Change
+                </button>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <ResolutionSelector
                   value={resolution}
