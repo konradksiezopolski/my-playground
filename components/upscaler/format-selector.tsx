@@ -1,4 +1,7 @@
+'use client'
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
 import type { OutputFormat } from '@/lib/upscaler-types'
 
 interface FormatSelectorProps {
@@ -25,7 +28,12 @@ export function FormatSelector({ value, onChange, onProAttempt }: FormatSelector
           <SelectItem value="jpg">JPG</SelectItem>
           <SelectItem value="png">PNG</SelectItem>
           <SelectItem value="webp">WEBP</SelectItem>
-          <SelectItem value="tiff">TIFF — Pro only</SelectItem>
+          <SelectItem value="tiff">
+            <span className="flex items-center gap-2">
+              TIFF
+              <Badge variant="secondary" className="text-[10px]">Pro</Badge>
+            </span>
+          </SelectItem>
         </SelectContent>
       </Select>
     </div>
